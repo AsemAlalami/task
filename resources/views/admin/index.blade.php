@@ -30,7 +30,7 @@
                                     {{ $archived_tasks_count }}
                                 </div>
                                 <div class="trending trending-down-basic">
-                                    <span>{{ round($archived_tasks_count/$tasks_count*100, 2) }}%</span><i
+                                    <span>{{ $tasks_count?round($archived_tasks_count/$tasks_count*100, 2):0 }}%</span><i
                                             class="os-icon os-icon-arrow-down"></i>
                                 </div>
                             </a>
@@ -44,7 +44,7 @@
                                     {{ $unarchived_tasks_count }}
                                 </div>
                                 <div class="trending trending-down-basic">
-                                    <span>{{ round($unarchived_tasks_count/$tasks_count*100) }}%</span><i
+                                    <span>{{ $tasks_count?round($unarchived_tasks_count/$tasks_count*100, 2):0 }}%</span><i
                                             class="os-icon os-icon-arrow-down"></i>
                                 </div>
                             </a>
