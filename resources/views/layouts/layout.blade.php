@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin Dashboard HTML Template</title>
+    <title>@yield('page_title', 'Admin Dashboard')</title>
     <meta charset="utf-8">
     <meta content="ie=edge" http-equiv="x-ua-compatible">
     <meta content="template language" name="keywords">
@@ -19,8 +19,10 @@
     <link href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="bower_components/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
     <link href="bower_components/perfect-scrollbar/css/perfect-scrollbar.min.css" rel="stylesheet">
-    <link href="css/main.css?version=3.7.0" rel="stylesheet">
+    <link href="/css/main.css?version=3.7.0" rel="stylesheet">
     <link href="bower_components/dragula.js/dist/dragula.min.css" rel="stylesheet">
+    <link href="/css/toastr.min.css" rel="stylesheet">
+    @yield('css')
 </head>
 <body>
 <div class="all-wrapper menu-side">
@@ -129,7 +131,8 @@
 <script src="bower_components/bootstrap/js/dist/tooltip.js"></script>
 <script src="bower_components/bootstrap/js/dist/popover.js"></script>
 <script src="bower_components/dragula.js/dist/dragula.min.js"></script>
-<script src="js/main.js?version=3.7.0"></script>
+<script src="/js/main.js?version=3.7.0"></script>
+<script src="/js/toastr.min.js"></script>
 <script>
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
@@ -146,5 +149,23 @@
     ga('create', 'UA-XXXXXXXX-9', 'auto');
     ga('send', 'pageview');
 </script>
+
+<script>
+    @if(Session::has('message'))
+
+        var alertType = {!! json_encode(Session::get('alert-type', 'info')) !!};
+        var alertMessage = {!! json_encode(Session::get('message')) !!};
+        var alerter = toastr[alertType];
+
+        if (alerter) {
+            alerter(alertMessage);
+        } else {
+            toastr.error("toastr alert-type " + alertType + " is unknown");
+        }
+
+    @endif
+</script>
+
+@yield('js')
 </body>
 </html>

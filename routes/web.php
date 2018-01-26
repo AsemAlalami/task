@@ -13,3 +13,13 @@
 
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
+
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function (){
+    Route::get('/', 'HomeController@dashboard');
+    Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');
+    Route::get('tasks/fetch', 'TaskController@fetch')->name('tasks.fetch');
+    Route::resource('tasks', 'TaskController');
+});
+
+Auth::routes();
+
